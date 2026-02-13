@@ -97,11 +97,10 @@ svg {
 
 .page-nav {
   position: fixed;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50px;
+  left: 14px;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   z-index: 60;
 }
 
@@ -186,6 +185,16 @@ svg {
   .controls button {
     padding: 3px 7px !important;
     font-size: 10px !important
+  }
+
+  .page-nav {
+    top: 38px;
+    left: 8px;
+  }
+
+  .page-nav-link {
+    padding: 4px 10px;
+    font-size: 11px;
   }
 
   .legend {
