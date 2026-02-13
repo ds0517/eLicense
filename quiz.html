@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E資格 用語クイズ</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>📝 E資格 用語クイズ<span>516問の用語データから出題</span></h1>
+        <div style="display:flex;gap:8px">
+            <a href="index.html">🗺️ マップ</a>
+            <a href="code.html">💻 コード</a>
+        </div>
+    </div>
+
+    <!-- ── Setup Screen ── -->
+    <div class="setup" id="setup">
+        <h2>クイズ設定</h2>
+        <p>分野・問題数・出題形式を選んでスタート</p>
+
+        <div class="setup-section">
+            <label>分野</label>
+            <div class="chip-group" id="cat-chips">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <div class="setup-section">
+            <label>問題数</label>
+            <div class="chip-group" id="count-chips">
+                <div class="chip" data-count="10">10問</div>
+                <div class="chip active" data-count="20">20問</div>
+                <div class="chip" data-count="50">50問</div>
+                <div class="chip" data-count="0">全問</div>
+            </div>
+        </div>
+
+        <div class="setup-section">
+            <label>出題形式</label>
+            <div class="chip-group" id="type-chips">
+                <div class="chip active" data-type="all">ミックス</div>
+                <div class="chip" data-type="desc">説明→用語</div>
+                <div class="chip" data-type="keyword">キーワード連想</div>
+            </div>
+        </div>
+
+        <button class="btn-start" id="btn-start">クイズ開始</button>
+    </div>
+
+    <!-- ── Quiz Screen ── -->
+    <div class="quiz hidden" id="quiz">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-text">
+            <span><span id="progress-current">1</span> / <span id="progress-total">20</span></span>
+            <span>スコア: <span id="score-display">0</span></span>
+        </div>
+
+        <div class="question-card">
+            <div class="question-type type-desc" id="q-type">説明 → 用語</div>
+            <div class="question-text" id="q-text"></div>
+            <div class="question-category" id="q-category"></div>
+        </div>
+
+        <div class="choices" id="choices"></div>
+        <div class="feedback hidden" id="feedback"></div>
+        <button class="btn-next hidden" id="btn-next">次の問題 →</button>
+    </div>
+
+    <!-- ── Result Screen ── -->
+    <div class="result hidden" id="result">
+        <div class="result-header">
+            <div class="result-score" id="result-score">0%</div>
+            <div class="result-label" id="result-total-label"></div>
+            <div class="result-stats">
+                <div class="result-stat stat-correct">
+                    <div class="num" id="result-correct-num">0</div>
+                    <div class="lbl">正解</div>
+                </div>
+                <div class="result-stat stat-wrong">
+                    <div class="num" id="result-wrong-num">0</div>
+                    <div class="lbl">不正解</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-section">
+            <h3>間違えた問題</h3>
+            <div id="wrong-list"></div>
+        </div>
+
+        <div class="result-actions">
+            <button class="btn-retry" id="btn-retry">もう一度</button>
+            <a class="btn-home" href="index.html">🗺️ マップ</a>
+        </div>
+    </div>
+
+    <script src="js/quiz.js"></script>
+</body>
+
+</html>
