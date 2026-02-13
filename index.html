@@ -362,12 +362,57 @@
       color: #64748b;
       text-align: center
     }
+
+    #minimap {
+      position: fixed;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(15, 23, 41, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      z-index: 50;
+      cursor: crosshair
+    }
+
+    @media(max-width:600px) {
+      #minimap {
+        display: none
+      }
+    }
+
+    .dp-crosslink {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      margin-top: 4px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s
+    }
+
+    .dp-crosslink:hover {
+      background: rgba(59, 130, 246, 0.15)
+    }
+
+    .dp-crosslink-path {
+      font-size: 11.5px;
+      color: #94a3b8;
+      flex: 1
+    }
+
+    .dp-crosslink-arrow {
+      color: #3b82f6;
+      font-size: 14px
+    }
   </style>
 </head>
 
 <body>
   <div class="title-bar">
-    <h1>E資格 全ノード展開マインドマップ (524ノード)</h1>
+    <h1>E資格 全ノード展開マインドマップ (519ノード)</h1>
     <p>タップ: 展開/折りたたみ ｜ 長押し: 詳細表示 ｜ ドラッグ: 移動 ｜ ピンチ/スクロール: ズーム</p>
   </div>
   <div class="controls">
@@ -382,7 +427,7 @@
     <span class="count" id="search-count"></span>
   </div>
   <div class="legend">
-    <div class="legend-title">分野カラー (524ノード)</div>
+    <div class="legend-title">分野カラー (519ノード)</div>
     <div class="legend-item">
       <div class="legend-dot" style="background:#f59e0b"></div>応用数学
     </div>
@@ -399,6 +444,7 @@
       <div class="legend-dot" style="background:#ec4899"></div>開発・運用環境
     </div>
   </div>
+  <canvas id="minimap" width="200" height="140"></canvas>
   <div id="detail-overlay">
     <div id="detail-panel">
       <button class="dp-close" id="dp-close">&times;</button>
@@ -428,6 +474,8 @@
       function vis(n) { return (!n._collapsed && n.children) ? n.children : []; }
       function flatAll(n, a = []) { a.push(n); if (n.children) n.children.forEach(c => flatAll(c, a)); return a; }
       allNodes = flatAll(DATA);
+      const dupeMap = {}; allNodes.forEach(n => { const nm = n.name.replace(/\n/g, ' '); if (!dupeMap[nm]) dupeMap[nm] = []; dupeMap[nm].push(n); });
+      let _oX = 60, _oY = 0;
       function layout(root) {
         function ch(n) { const c = vis(n); if (!c.length) { n._h = 1; return 1; } let s = 0; c.forEach(x => s += ch(x)); s += (c.length - 1) * 0.08; n._h = s; return s; }
         function pos(n, x, y) { const c = vis(n); n._x = x; if (!c.length) { n._y = y + 0.5; return; } let off = y; const childX = x + Math.max(LG[Math.min(n._depth + 1, 4)], nw(n) + LINK_GAP); c.forEach(child => { pos(child, childX, off); off += child._h + 0.08; }); n._y = (c[0]._y + c[c.length - 1]._y) / 2; }
@@ -443,7 +491,7 @@
       function render() {
         layout(DATA); const nodes = collect(DATA), links = lks(DATA);
         let minY = 1e9, maxY = -1e9; nodes.forEach(n => { minY = Math.min(minY, n._y); maxY = Math.max(maxY, n._y); });
-        const oX = 60, oY = H / 2 - (minY + maxY) / 2;
+        const oX = 60, oY = H / 2 - (minY + maxY) / 2; _oX = oX; _oY = oY;
         let s = `<g id="gRoot" transform="translate(${ct.x},${ct.y}) scale(${ct.k})">`;
         links.forEach(l => { const sx = l.s._x + oX + nw(l.s), sy = l.s._y + oY, tx = l.t._x + oX, ty = l.t._y + oY, mx = (sx + tx) / 2; s += `<path class="link" d="M${sx},${sy} C${mx},${sy} ${mx},${ty} ${tx},${ty}" stroke="${l.t.color}" stroke-width="${l.t._depth >= 3 ? 0.7 : 1.2}" opacity="${l.t._depth >= 3 ? 0.18 : 0.32}"/>`; });
         nodes.forEach(n => {
@@ -455,6 +503,7 @@
           lines.forEach((ln, i) => { const ty2 = h / 2 + (i - (lines.length - 1) / 2) * (f + 1.5); s += `<text x="${w / 2}" y="${ty2}" text-anchor="middle" dominant-baseline="central" fill="${n._depth === 0 ? '#111' : '#f1f5f9'}" font-size="${f}" font-weight="${n._depth <= 1 ? '700' : '500'}" style="pointer-events:none">${ln}</text>`; });
           if (hasCh) { s += `<text x="${w - 4}" y="7" text-anchor="end" font-size="8" fill="${n.color}" opacity="0.8" style="pointer-events:none">${n._collapsed ? '+' + n.children.length : '\u2212'}</text>`; }
           if (n.desc && n.desc.length > 0) { s += `<title>${esc(n.name.replace(/\n/g, ' '))}${n.desc ? ': ' + esc(n.desc) : ''}</title>`; }
+          { const _nm = n.name.replace(/\n/g, ' '); if (dupeMap[_nm] && dupeMap[_nm].length > 1 && n._depth >= 2) { s += `<text x="4" y="${h - 3}" font-size="7" fill="#60a5fa" opacity="0.85" style="pointer-events:none">🔗</text>`; } }
           s += `</g>`;
         });
         s += `</g>`; svg.innerHTML = s; gRoot = document.getElementById('gRoot');
@@ -469,6 +518,7 @@
           el.addEventListener('touchstart', e => { e.stopPropagation(); }, { passive: true });
           el.addEventListener('contextmenu', e => e.preventDefault());
         });
+        renderMinimap();
       }
       function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
       // Detail panel - activation function graphs
@@ -578,7 +628,19 @@
           const siblings = parent.children.filter(c => c._id !== node._id);
           html += `<div class="dp-section"><div class="dp-section-title">同カテゴリの用語 (${siblings.length})</div><div class="dp-keywords">${siblings.map(c => `<span class="dp-kw">${esc(c.name.replace(/\n/g, ' '))}</span>`).join('')}</div></div>`;
         }
+        const _nodeName = node.name.replace(/\n/g, ' ');
+        const _dupes = dupeMap[_nodeName];
+        if (_dupes && _dupes.length > 1) {
+          const _others = _dupes.filter(d => d._id !== node._id);
+          html += `<div class="dp-section"><div class="dp-section-title">🔗 他分野での登場 (${_others.length})</div>`;
+          _others.forEach((d, i) => { const p = getPath(DATA, d); html += `<div class="dp-crosslink" data-nav-idx="${i}"><span class="dp-crosslink-path">${p.slice(1, -1).map(x => esc(x.name.replace(/\n/g, ' '))).join(' › ') || 'ルート'}</span><span class="dp-crosslink-arrow">→</span></div>`; });
+          html += `</div>`;
+        }
         document.getElementById('dp-body').innerHTML = html; overlay.classList.add('show');
+        if (_dupes && _dupes.length > 1) {
+          const _others = _dupes.filter(d => d._id !== node._id);
+          document.querySelectorAll('.dp-crosslink').forEach(el => { const idx = parseInt(el.dataset.navIdx); el.addEventListener('click', () => { overlay.classList.remove('show'); navigateTo(_others[idx]); }); });
+        }
       }
       function isLight(h) { if (!h.startsWith('#')) return false; return (parseInt(h.slice(1, 3), 16) * 0.299 + parseInt(h.slice(3, 5), 16) * 0.587 + parseInt(h.slice(5, 7), 16) * 0.114) > 150; }
       function getCat(node) { if (node._depth === 0) return 'E資格'; let cur = node; while (cur._depth > 1) { const p = findParent(DATA, cur); if (!p) break; cur = p; } return cur.name.replace(/\n/g, ' '); }
@@ -587,12 +649,14 @@
       overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('show'); });
       document.getElementById('dp-close').addEventListener('click', () => overlay.classList.remove('show'));
       document.addEventListener('keydown', e => { if (e.key === 'Escape') overlay.classList.remove('show'); });
+      function applyView() { if (gRoot) gRoot.setAttribute('transform', `translate(${ct.x},${ct.y}) scale(${ct.k})`); renderMinimap(); }
+      function navigateTo(target) { allNodes.forEach(n => n._hl = false); target._hl = true; (function exp(r, t) { if (r._id === t._id) return true; if (!r.children) return false; for (const c of r.children) { if (exp(c, t)) { r._collapsed = false; return true; } } return false; })(DATA, target); render(); ct.k = Math.max(ct.k, 0.8); ct.x = W / 2 - (target._x + _oX + nw(target) / 2) * ct.k; ct.y = H / 2 - (target._y + _oY) * ct.k; applyView(); }
       // Pan & zoom
       let isDrag = false, ds = { x: 0, y: 0 };
       svg.addEventListener('mousedown', e => { isDrag = true; ds = { x: e.clientX - ct.x, y: e.clientY - ct.y }; svg.style.cursor = 'grabbing'; document.body.style.pointerEvents = 'none'; svg.style.pointerEvents = 'auto'; });
-      window.addEventListener('mousemove', e => { if (!isDrag) return; ct.x = e.clientX - ds.x; ct.y = e.clientY - ds.y; if (gRoot) gRoot.setAttribute('transform', `translate(${ct.x},${ct.y}) scale(${ct.k})`); });
+      window.addEventListener('mousemove', e => { if (!isDrag) return; ct.x = e.clientX - ds.x; ct.y = e.clientY - ds.y; applyView(); });
       window.addEventListener('mouseup', () => { isDrag = false; svg.style.cursor = 'default'; document.body.style.pointerEvents = ''; });
-      svg.addEventListener('wheel', e => { e.preventDefault(); const d = e.deltaY > 0 ? 0.9 : 1.1, nk = Math.max(0.05, Math.min(5, ct.k * d)), mx = e.clientX, my = e.clientY; ct.x = mx - (mx - ct.x) * (nk / ct.k); ct.y = my - (my - ct.y) * (nk / ct.k); ct.k = nk; if (gRoot) gRoot.setAttribute('transform', `translate(${ct.x},${ct.y}) scale(${ct.k})`); }, { passive: false });
+      svg.addEventListener('wheel', e => { e.preventDefault(); const d = e.deltaY > 0 ? 0.9 : 1.1, nk = Math.max(0.05, Math.min(5, ct.k * d)), mx = e.clientX, my = e.clientY; ct.x = mx - (mx - ct.x) * (nk / ct.k); ct.y = my - (my - ct.y) * (nk / ct.k); ct.k = nk; applyView(); }, { passive: false });
       // Touch support for mobile
       let tch = { active: false, sx: 0, sy: 0, dist: 0, panning: false };
       function tDist(ts) { return Math.hypot(ts[0].clientX - ts[1].clientX, ts[0].clientY - ts[1].clientY); }
@@ -604,8 +668,8 @@
       }, { passive: false });
       svg.addEventListener('touchmove', e => {
         e.preventDefault();
-        if (e.touches.length === 1 && tch.panning) { ct.x = e.touches[0].clientX - tch.sx; ct.y = e.touches[0].clientY - tch.sy; if (gRoot) gRoot.setAttribute('transform', `translate(${ct.x},${ct.y}) scale(${ct.k})`); }
-        if (e.touches.length === 2 && tch.dist > 0) { const nd = tDist(e.touches), nm = tMid(e.touches), sc = nd / tch.dist, nk = Math.max(0.05, Math.min(5, ct.k * sc)); ct.x = nm.x - (nm.x - ct.x) * (nk / ct.k); ct.y = nm.y - (nm.y - ct.y) * (nk / ct.k); ct.k = nk; tch.dist = nd; tch.mid = nm; if (gRoot) gRoot.setAttribute('transform', `translate(${ct.x},${ct.y}) scale(${ct.k})`); }
+        if (e.touches.length === 1 && tch.panning) { ct.x = e.touches[0].clientX - tch.sx; ct.y = e.touches[0].clientY - tch.sy; applyView(); }
+        if (e.touches.length === 2 && tch.dist > 0) { const nd = tDist(e.touches), nm = tMid(e.touches), sc = nd / tch.dist, nk = Math.max(0.05, Math.min(5, ct.k * sc)); ct.x = nm.x - (nm.x - ct.x) * (nk / ct.k); ct.y = nm.y - (nm.y - ct.y) * (nk / ct.k); ct.k = nk; tch.dist = nd; tch.mid = nm; applyView(); }
       }, { passive: false });
       svg.addEventListener('touchend', () => { tch.active = false; tch.panning = false; tch.dist = 0; });
       // Controls
@@ -634,6 +698,40 @@
         render();
       });
       window.addEventListener('resize', () => { svg.setAttribute('width', window.innerWidth); svg.setAttribute('height', window.innerHeight); render(); });
+      // Minimap
+      const mmCanvas = document.getElementById('minimap'), mmCtx = mmCanvas.getContext('2d'), MM_W = 200, MM_H = 140;
+      function renderMinimap() {
+        const ctx = mmCtx; ctx.clearRect(0, 0, MM_W, MM_H);
+        const vn = collect(DATA); if (vn.length === 0) return;
+        let mnX = 1e9, mxX = -1e9, mnY = 1e9, mxY = -1e9;
+        vn.forEach(n => { const x = n._x + _oX, y = n._y + _oY; mnX = Math.min(mnX, x); mxX = Math.max(mxX, x + nw(n)); mnY = Math.min(mnY, y - 15); mxY = Math.max(mxY, y + 15); });
+        const pd = 10, rX = mxX - mnX || 1, rY = mxY - mnY || 1;
+        const sc = Math.min((MM_W - pd * 2) / rX, (MM_H - pd * 2) / rY);
+        const ox = pd + ((MM_W - pd * 2) - rX * sc) / 2, oy = pd + ((MM_H - pd * 2) - rY * sc) / 2;
+        const tmx = x => ox + (x - mnX) * sc, tmy = y => oy + (y - mnY) * sc;
+        vn.forEach(n => { const mx = tmx(n._x + _oX), my = tmy(n._y + _oY), sz = n._depth === 0 ? 4 : n._depth === 1 ? 2.5 : 1.5; ctx.fillStyle = n._hl ? '#fbbf24' : (n.color || '#94a3b8'); ctx.globalAlpha = n._depth <= 1 ? 0.9 : 0.5; ctx.beginPath(); ctx.arc(mx, my, sz, 0, Math.PI * 2); ctx.fill(); });
+        ctx.globalAlpha = 1;
+        const vl = -ct.x / ct.k, vt2 = -ct.y / ct.k, vw = W / ct.k, vh = H / ct.k;
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 1.5; ctx.strokeRect(tmx(vl), tmy(vt2), vw * sc, vh * sc);
+      }
+      let mmDrag = false;
+      function mmNav(e) {
+        const rect = mmCanvas.getBoundingClientRect(), mx = (e.clientX || e.pageX) - rect.left, my = (e.clientY || e.pageY) - rect.top;
+        const vn = collect(DATA); if (vn.length === 0) return;
+        let mnX = 1e9, mxX = -1e9, mnY = 1e9, mxY = -1e9;
+        vn.forEach(n => { const x = n._x + _oX, y = n._y + _oY; mnX = Math.min(mnX, x); mxX = Math.max(mxX, x + nw(n)); mnY = Math.min(mnY, y - 15); mxY = Math.max(mxY, y + 15); });
+        const pd = 10, rX = mxX - mnX || 1, rY = mxY - mnY || 1;
+        const sc = Math.min((MM_W - pd * 2) / rX, (MM_H - pd * 2) / rY);
+        const ox = pd + ((MM_W - pd * 2) - rX * sc) / 2, oy = pd + ((MM_H - pd * 2) - rY * sc) / 2;
+        ct.x = W / 2 - (mnX + (mx - ox) / sc) * ct.k; ct.y = H / 2 - (mnY + (my - oy) / sc) * ct.k;
+        applyView();
+      }
+      mmCanvas.addEventListener('mousedown', e => { e.stopPropagation(); mmDrag = true; mmNav(e); });
+      window.addEventListener('mousemove', e => { if (mmDrag) mmNav(e); });
+      window.addEventListener('mouseup', () => { mmDrag = false; });
+      mmCanvas.addEventListener('touchstart', e => { e.stopPropagation(); e.preventDefault(); mmDrag = true; mmNav(e.touches[0]); }, { passive: false });
+      mmCanvas.addEventListener('touchmove', e => { e.preventDefault(); if (mmDrag) mmNav(e.touches[0]); }, { passive: false });
+      mmCanvas.addEventListener('touchend', () => { mmDrag = false; });
       render();
     }).catch(e => { console.error('Failed to load data.json:', e); document.body.innerHTML = '<h1 style="color:red;text-align:center;margin-top:20vh">data.json の読み込みに失敗しました</h1>'; });
   </script>
