@@ -3,77 +3,77 @@
     {
       "term": "ReLU",
       "cat": "活性化関数",
-      "code": "import tensorflow as tf\n\n# Denseレイヤーで指定\nmodel.add(tf.keras.layers.Dense(\n    64,                # units: 出力ユニット数\n    activation='relu'  # x>0→x, x≤0→0 を適用\n))\n\n# 関数として使用（テンソルに直接適用）\nx = tf.keras.activations.relu(x)",
+      "code": "import tensorflow as tf\n\n# Denseレイヤーで指定\nmodel.add(tf.keras.layers.Dense(\n    64,\n    # x>0→x, x≤0→0\n    activation='relu'\n))\n\n# 関数として使用\nx = tf.keras.activations.relu(x)",
       "note": "x<0で勾配0。深層学習の標準活性化関数",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/activations/relu"
     },
     {
       "term": "Leaky ReLU",
       "cat": "活性化関数",
-      "code": "from tensorflow.keras.layers import LeakyReLU\n\nmodel.add(LeakyReLU(\n    alpha=0.01  # 負の傾き係数（x<0でα*xを出力、0に近いほどReLUに近い）\n))\n\n# alpha=0.1 → 負側の勾配を大きめに残す\nx = LeakyReLU(alpha=0.1)(x)",
+      "code": "from tensorflow.keras.layers \\\n    import LeakyReLU\n\nmodel.add(LeakyReLU(\n    alpha=0.01  # 負の傾き係数\n))\n\n# alpha=0.1 → 負側の勾配を大きめに\nx = LeakyReLU(alpha=0.1)(x)",
       "note": "x<0でも小さな勾配αを持ち、dying neuron問題を緩和",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/LeakyReLU"
     },
     {
       "term": "GELU",
       "cat": "活性化関数",
-      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    64,                # units: 出力ユニット数\n    activation='gelu'  # ガウス誤差線形ユニット（滑らかなReLU）\n))\n\n# 関数として直接適用（BERT/GPT等で標準）\nx = tf.keras.activations.gelu(x)",
+      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    64,\n    # ガウス誤差線形ユニット\n    activation='gelu'\n))\n\n# 関数として直接適用\nx = tf.keras.activations.gelu(x)",
       "note": "Transformerで標準的に使用される活性化関数",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/activations/gelu"
     },
     {
       "term": "Sigmoid function",
       "cat": "活性化関数",
-      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    1,                   # units=1: 二値分類なので出力1つ\n    activation='sigmoid' # 出力を(0,1)の確率値に変換\n))\n\n# 関数として使用（ロジットを確率に変換）\nx = tf.keras.activations.sigmoid(x)",
+      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    1,  # 二値分類は出力1\n    # 出力を(0,1)に変換\n    activation='sigmoid'\n))\n\n# 関数として使用\nx = tf.keras.activations.sigmoid(x)",
       "note": "出力を(0,1)に写像。二値分類の出力層で使用",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/activations/sigmoid"
     },
     {
       "term": "tanh",
       "cat": "活性化関数",
-      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    64,               # units: 出力ユニット数\n    activation='tanh' # 出力を(-1,1)に写像（零中心で学習が安定）\n))\nx = tf.keras.activations.tanh(x)",
+      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    64,\n    # (-1,1)に写像\n    activation='tanh'\n))\nx = tf.keras.activations.tanh(x)",
       "note": "出力を(-1,1)に写像。RNNの隠れ状態で使用",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/activations/tanh"
     },
     {
       "term": "ソフトマックス関数",
       "cat": "活性化関数",
-      "code": "import tensorflow as tf\n\n# 多クラス分類の出力層\nmodel.add(tf.keras.layers.Dense(\n    10,                  # units=10: クラス数（10クラス分類）\n    activation='softmax' # 出力を確率分布に変換（合計1.0）\n))\n\n# 温度付きSoftmax（蒸留等で使用）\ndef softmax_with_temp(logits, temperature=1.0):\n    # temperature: 高い→分布が平坦、低い→尖鋭化\n    return tf.nn.softmax(logits / temperature)",
+      "code": "import tensorflow as tf\n\n# 多クラス分類の出力層\nmodel.add(tf.keras.layers.Dense(\n    10,  # クラス数\n    # 確率分布に変換(合計1.0)\n    activation='softmax'\n))\n\n# 温度付きSoftmax\ndef softmax_with_temp(logits, temp=1.0):\n    # temp:大→平坦, 小→尖鋭\n    return tf.nn.softmax(logits / temp)",
       "note": "K次元ベクトルを確率分布に変換。多クラス分類の出力層",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/activations/softmax"
     },
     {
       "term": "Swish",
       "cat": "活性化関数",
-      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    64,                # units: 出力ユニット数\n    activation='swish' # f(x)=x*sigmoid(x) 自己ゲート型、負側も滑らかに通す\n))\n# EfficientNet等で採用、ReLUより性能が良い場合が多い",
+      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    64,\n    # x * sigmoid(x)\n    activation='swish'\n))\n# EfficientNet等で採用",
       "note": "自己ゲート型活性化関数。EfficientNetで採用",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/activations/swish"
     },
     {
       "term": "Adam",
       "cat": "最適化",
-      "code": "import tensorflow as tf\n\noptimizer = tf.keras.optimizers.Adam(\n    learning_rate=0.001, # 学習率（大きい→高速だが不安定、小さい→安定だが遅い）\n    beta_1=0.9,          # 一次モーメント（勾配の移動平均）の減衰率\n    beta_2=0.999,        # 二次モーメント（勾配²の移動平均）の減衰率\n    epsilon=1e-07        # ゼロ除算防止の微小値\n)\nmodel.compile(optimizer=optimizer, loss='mse')",
+      "code": "import tensorflow as tf\n\nopt = tf.keras.optimizers.Adam(\n    learning_rate=0.001,\n    beta_1=0.9,    # 勾配の移動平均\n    beta_2=0.999,  # 勾配²の移動平均\n    epsilon=1e-07\n)\nmodel.compile(optimizer=opt, loss='mse')",
       "note": "Momentum+RMSPropの統合。最も広く使われる最適化器",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adam"
     },
     {
       "term": "AdamW",
       "cat": "最適化",
-      "code": "import tensorflow as tf\n\noptimizer = tf.keras.optimizers.AdamW(\n    learning_rate=0.001, # 学習率\n    weight_decay=0.01    # 重み減衰率（L2正則化と異なり学習率と独立）\n)\nmodel.compile(optimizer=optimizer, loss='mse')",
+      "code": "import tensorflow as tf\n\nopt = tf.keras.optimizers.AdamW(\n    learning_rate=0.001,\n    # L2と独立した重み減衰\n    weight_decay=0.01\n)\nmodel.compile(optimizer=opt, loss='mse')",
       "note": "重み減衰をL2正則化から分離した改良版Adam",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/AdamW"
     },
     {
       "term": "確率的勾配降下法",
       "cat": "最適化",
-      "code": "import tensorflow as tf\n\noptimizer = tf.keras.optimizers.SGD(\n    learning_rate=0.01, # 学習率（SGDは他より大きめに設定することが多い）\n    momentum=0.9,       # 慣性項（過去の勾配を蓄積、0→慣性なし、0.9が一般的）\n    nesterov=True        # Nesterov加速勾配法（先読み勾配で収束を高速化）\n)\nmodel.compile(optimizer=optimizer, loss='categorical_crossentropy')",
+      "code": "import tensorflow as tf\n\nopt = tf.keras.optimizers.SGD(\n    learning_rate=0.01,\n    momentum=0.9, # 慣性項\n    nesterov=True # NAG\n)\n# Categorical Crossentropy\nmodel.compile(\n    optimizer=opt,\n    loss='categorical_crossentropy'\n)",
       "note": "基本の勾配降下法。momentum/nesterovオプション付き",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/SGD"
     },
     {
       "term": "学習率スケジューリング",
       "cat": "最適化",
-      "code": "import tensorflow as tf\n\n# コサインアニーリング（滑らかに学習率を減衰）\nschedule = tf.keras.optimizers.schedules.CosineDecay(\n    initial_learning_rate=0.01, # 開始時の学習率\n    decay_steps=1000            # 何ステップで最小値に到達するか\n)\noptimizer = tf.keras.optimizers.Adam(learning_rate=schedule)\n\n# ReduceLROnPlateau（指標が停滞したら学習率を下げる）\nreduce_lr = tf.keras.callbacks.ReduceLROnPlateau(\n    monitor='val_loss', # 監視する指標\n    factor=0.5,         # 学習率をこの倍率で縮小（0.5→半分に）\n    patience=5          # 改善なしを何epoch許容するか\n)",
+      "code": "import tensorflow as tf\n\n# コサインアニーリング\nsched = tf.keras.optimizers.schedules \\\n    .CosineDecay(\n        initial_learning_rate=0.01,\n        decay_steps=1000\n    )\nopt = tf.keras.optimizers.Adam(\n    learning_rate=sched\n)\n\n# ReduceLROnPlateau\nreduce_lr = tf.keras.callbacks \\\n    .ReduceLROnPlateau(\n        monitor='val_loss',\n        factor=0.5, # 半分に\n        patience=5\n    )",
       "note": "訓練中に学習率を動的に変更する手法",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules"
     },
@@ -87,105 +87,105 @@
     {
       "term": "交差エントロピー",
       "cat": "損失関数",
-      "code": "import tensorflow as tf\n\n# 二値分類（出力: sigmoid、0か1の2クラス）\nmodel.compile(loss='binary_crossentropy')\n\n# 多クラス分類（ラベルがone-hot形式 [0,1,0,...]）\nmodel.compile(loss='categorical_crossentropy')\n\n# 多クラス分類（ラベルが整数 0,1,2,...）\n# → one-hot変換が不要でメモリ節約\nmodel.compile(loss='sparse_categorical_crossentropy')",
+      "code": "import tensorflow as tf\n\n# 二値分類 (出力:sigmoid)\nmodel.compile(\n    loss='binary_crossentropy'\n)\n\n# 多クラス (one-hot)\nmodel.compile(\n    loss='categorical_crossentropy'\n)\n\n# 多クラス (整数ラベル)\n# one-hot変換不要でメモリ節約\nmodel.compile(\n    loss='sparse_categorical_crossentropy'\n)",
       "note": "分類タスクの標準損失関数",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/losses/CategoricalCrossentropy"
     },
     {
       "term": "損失関数",
       "cat": "損失関数",
-      "code": "import tensorflow as tf\n\n# MSE: 回帰タスクの標準損失（二乗誤差の平均）\nloss = tf.keras.losses.MeanSquaredError()\n\n# MAE: 絶対誤差の平均（外れ値に強い）\nloss = tf.keras.losses.MeanAbsoluteError()\n\n# Huber: MSEとMAEのハイブリッド（外れ値に頼健）\nloss = tf.keras.losses.Huber(\n    delta=1.0  # delta以下→MSE的、delta以上→MAE的に振る舞う\n)\n\n# カスタム損失関数（独自の損失を定義可能）\n@tf.function\ndef custom_loss(y_true, y_pred):\n    return tf.reduce_mean(tf.square(y_true - y_pred))",
+      "code": "import tensorflow as tf\n\n# MSE: 二乗誤差 (回帰)\nloss = tf.keras.losses \\\n    .MeanSquaredError()\n\n# MAE: 絶対誤差 (外れ値に強い)\nloss = tf.keras.losses \\\n    .MeanAbsoluteError()\n\n# Huber: MSEとMAEのハイブリッド\nloss = tf.keras.losses.Huber(\n    delta=1.0\n)\n\n# カスタム損失関数\n@tf.function\ndef custom_loss(y_true, y_pred):\n    return tf.reduce_mean(\n        tf.square(y_true - y_pred)\n    )",
       "note": "モデル予測と正解の乖離を定量化",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/losses"
     },
     {
       "term": "Dropout",
       "cat": "正則化",
-      "code": "import tensorflow as tf\n\n# Sequentialで追加\nmodel.add(tf.keras.layers.Dropout(\n    0.5  # rate: 無効化するユニットの割合（0.5→50%をランダムにゼロ化）\n))\n\n# Functionalで使用（training=Trueで訓練時のみ適用）\nx = tf.keras.layers.Dropout(0.3)(x, training=True)\n\n# SpatialDropout: CNN向け（チャネル単位でドロップ）\nmodel.add(tf.keras.layers.SpatialDropout2D(\n    0.2  # rate: チャネル全体をドロップする割合\n))",
+      "code": "import tensorflow as tf\n\n# Sequential\nmodel.add(tf.keras.layers.Dropout(\n    0.5  # 50%をゼロ化\n))\n\n# Functional (訓練時のみ)\nx = tf.keras.layers.Dropout(0.3)(\n    x, training=True\n)\n\n# SpatialDropout (CNN向け)\nmodel.add(\n    tf.keras.layers.SpatialDropout2D(\n        0.2  # チャネルごとドロップ\n    )\n)",
       "note": "訓練時にランダムにユニットを無効化し過学習を防止",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dropout"
     },
     {
       "term": "バッチ正規化",
       "cat": "正則化",
-      "code": "import tensorflow as tf\n\n# CNNでの典型的使用: Conv → BN → ReLU\nx = tf.keras.layers.Conv2D(\n    64, 3,            # filters=64, kernel_size=3\n    use_bias=False    # BNがバイアスを含むためFalseにしてパラメータ削減\n)(x)\nx = tf.keras.layers.BatchNormalization()(x)  # ミニバッチ内で正規化\nx = tf.keras.layers.ReLU()(x)",
+      "code": "import tensorflow as tf\n\n# Conv -> BN -> ReLU\nx = tf.keras.layers.Conv2D(\n    64, 3,\n    use_bias=False # BNにバイアス有\n)(x)\n# ミニバッチ内正規化\nx = tf.keras.layers.BatchNormalization()(x)\nx = tf.keras.layers.ReLU()(x)",
       "note": "ミニバッチ内で正規化し学習を安定化",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization"
     },
     {
       "term": "レイヤー正規化",
       "cat": "正則化",
-      "code": "import tensorflow as tf\n\nx = tf.keras.layers.LayerNormalization(\n    epsilon=1e-6  # ゼロ除算防止の微小値（小さいほど精度↑だが不安定になる）\n)(x)\n# バッチサイズに非依存、Transformerで標準的に使用",
+      "code": "import tensorflow as tf\n\n# バッチサイズ非依存 (Transformer等)\nx = tf.keras.layers \\\n    .LayerNormalization(\n        epsilon=1e-6\n    )(x)",
       "note": "各サンプルの特徴量次元で正規化。バッチサイズに非依存",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization"
     },
     {
       "term": "L1正則化",
       "cat": "正則化",
-      "code": "import tensorflow as tf\n\n# Dense層にL1正則化（重みを疎にし特徴選択効果）\nmodel.add(tf.keras.layers.Dense(\n    64,\n    kernel_regularizer=tf.keras.regularizers.L1(\n        0.01  # l1: 正則化強度（大きい→重みがより疎に）\n    )\n))\n\n# Elastic Net: L1+L2 の併用\nmodel.add(tf.keras.layers.Dense(\n    64,\n    kernel_regularizer=tf.keras.regularizers.L1L2(\n        l1=0.01,  # L1強度（疎性）\n        l2=0.01   # L2強度（重みの大きさ抑制）\n    )\n))",
+      "code": "import tensorflow as tf\n\n# L1正則化 (スパース化)\nmodel.add(tf.keras.layers.Dense(\n    64,\n    kernel_regularizer=\\\n        tf.keras.regularizers.L1(0.01)\n))\n\n# Elastic Net (L1+L2)\nmodel.add(tf.keras.layers.Dense(\n    64,\n    kernel_regularizer=\\\n        tf.keras.regularizers.L1L2(\n            l1=0.01, l2=0.01\n        )\n))",
       "note": "パラメータを疎にし特徴選択効果がある",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/regularizers/L1"
     },
     {
       "term": "L2正則化",
       "cat": "正則化",
-      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    64,\n    kernel_regularizer=tf.keras.regularizers.L2(\n        0.01  # l2: 正則化強度（大きい→重みが小さくなりやすい）\n    )\n    # L2は重みを小さく保つ（疎にはしない、L1との違い）\n))",
+      "code": "import tensorflow as tf\n\n# L2正則化 (重み抑制)\nmodel.add(tf.keras.layers.Dense(\n    64,\n    kernel_regularizer=\\\n        tf.keras.regularizers.L2(0.01)\n))",
       "note": "パラメータを小さく保ち過学習を抑制",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/regularizers/L2"
     },
     {
       "term": "早期終了",
       "cat": "正則化",
-      "code": "import tensorflow as tf\n\nearly_stop = tf.keras.callbacks.EarlyStopping(\n    monitor='val_loss',       # 監視する指標（'val_accuracy'等も可）\n    patience=10,              # 改善がない状態を何epoch許容するか\n    restore_best_weights=True # True: 最良時点の重みに復元\n)\nmodel.fit(x, y, epochs=100, callbacks=[early_stop])",
+      "code": "import tensorflow as tf\n\nstop = tf.keras.callbacks \\\n    .EarlyStopping(\n        monitor='val_loss',\n        patience=10,\n        restore_best_weights=True\n    )\nmodel.fit(x, y, callbacks=[stop])",
       "note": "検証損失が改善しなくなったら訓練を停止",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/EarlyStopping"
     },
     {
       "term": "畳み込み",
       "cat": "レイヤー",
-      "code": "import tensorflow as tf\n\n# 2D畳み込み（画像向け）\nmodel.add(tf.keras.layers.Conv2D(\n    filters=32,          # フィルタ数（出力チャネル数）\n    kernel_size=(3,3),   # フィルタサイズ（3x3が標準）\n    strides=1,           # ストライド（フィルタの移動幅、2で解像度半分）\n    padding='same',      # 'same': 出力サイズ維持 / 'valid': パディングなし\n    activation='relu'    # 活性化関数\n))\n\n# 1D畳み込み（系列データ向け）\nmodel.add(tf.keras.layers.Conv1D(\n    64, 3,               # filters=64, kernel_size=3\n    activation='relu'\n))\n\n# 転置畳み込み（アップサンプリング用）\nmodel.add(tf.keras.layers.Conv2DTranspose(\n    32, 3,               # filters=32, kernel_size=3\n    strides=2            # strides=2で解像度2倍に\n))",
+      "code": "import tensorflow as tf\n\n# 2D畳み込み (画像)\nmodel.add(tf.keras.layers.Conv2D(\n    filters=32, kernel_size=(3,3),\n    strides=1, padding='same',\n    activation='relu'\n))\n\n# 1D畳み込み (系列)\nmodel.add(tf.keras.layers.Conv1D(\n    64, 3, activation='relu'\n))\n\n# 転置畳み込み (アップサンプリング)\nmodel.add(\n    tf.keras.layers.Conv2DTranspose(\n        32, 3, strides=2\n    )\n)",
       "note": "局所的な特徴を抽出するフィルタ演算",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/Conv2D"
     },
     {
       "term": "プーリング",
       "cat": "レイヤー",
-      "code": "import tensorflow as tf\n\n# MaxPooling: 領域内の最大値を採用（特徴の最大値を保持）\nmodel.add(tf.keras.layers.MaxPooling2D(\n    pool_size=(2,2)  # 2x2領域で解像度を半分に\n))\n\n# AveragePooling: 領域内の平均値（滑らかなダウンサンプリング）\nmodel.add(tf.keras.layers.AveragePooling2D(\n    pool_size=(2,2)\n))\n\n# GlobalAveragePooling: 各チャネルの全空間平均→分類ヘッド前で使用\nmodel.add(tf.keras.layers.GlobalAveragePooling2D())",
+      "code": "import tensorflow as tf\n\n# MaxPool (特徴維持)\nmodel.add(\n    tf.keras.layers.MaxPooling2D(\n        pool_size=(2,2)\n    )\n)\n\n# AvgPool (平滑化)\nmodel.add(\n    tf.keras.layers.AveragePooling2D(\n        pool_size=(2,2)\n    )\n)\n\n# GlobalAvg (分類ヘッド前)\nmodel.add(\n    tf.keras.layers \\\n        .GlobalAveragePooling2D()\n)",
       "note": "空間解像度を縮小し位置不変性を獲得",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/MaxPooling2D"
     },
     {
       "term": "LSTM",
       "cat": "レイヤー",
-      "code": "import tensorflow as tf\n\n# 基本LSTM（最後のタイムステップの出力のみ）\nmodel.add(tf.keras.layers.LSTM(\n    128  # units: 隠れ状態の次元数\n))\n\n# スタックLSTM（複数層を重ねる）\nmodel.add(tf.keras.layers.LSTM(\n    128,\n    return_sequences=True  # True: 全タイムステップの出力を返す（次のRNN層に必要）\n))\nmodel.add(tf.keras.layers.LSTM(64))  # 最後の層は最終出力のみ\n\n# 双方向LSTM（前後両方向から文脈を取得）\nmodel.add(tf.keras.layers.Bidirectional(\n    tf.keras.layers.LSTM(64)\n))",
+      "code": "import tensorflow as tf\n\n# Stack LSTM\nmodel.add(tf.keras.layers.LSTM(\n    128, return_sequences=True\n))\nmodel.add(tf.keras.layers.LSTM(64))\n\n# Bidirectional\nmodel.add(\n    tf.keras.layers.Bidirectional(\n        tf.keras.layers.LSTM(64)\n    )\n)",
       "note": "長期依存性を学習できるゲート付きRNN",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTM"
     },
     {
       "term": "GRU",
       "cat": "レイヤー",
-      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.GRU(\n    128,                  # units: 隠れ状態の次元数\n    return_sequences=True,# True: 全タイムステップの出力を返す\n    dropout=0.2,          # 入力に対するDropout率\n    recurrent_dropout=0.1 # 再帰状態に対するDropout率\n))",
+      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.GRU(\n    128,\n    return_sequences=True,\n    dropout=0.2,\n    recurrent_dropout=0.1\n))",
       "note": "LSTMの簡略版。パラメータが少なく高速",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/GRU"
     },
     {
       "term": "Embedding",
       "cat": "レイヤー",
-      "code": "import tensorflow as tf\n\n# 単語埋め込み層\nmodel.add(tf.keras.layers.Embedding(\n    input_dim=10000,  # 語彙サイズ（ユニークなトークンの総数）\n    output_dim=128,   # 埋め込みベクトルの次元数（大きい→表現力↑だが計算量↑）\n    input_length=100  # 入力系列の長さ（固定長で入力する場合に指定）\n))",
+      "code": "import tensorflow as tf\n\n# Embedding\nmodel.add(tf.keras.layers.Embedding(\n    input_dim=10000, # 語彙数\n    output_dim=128,  # 次元数\n    input_length=100\n))",
       "note": "離散トークンを連続ベクトルに変換",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/Embedding"
     },
     {
       "term": "Attention",
       "cat": "レイヤー",
-      "code": "import tensorflow as tf\n\n# Keras組み込みAttention（Bahdanau型）\nattention = tf.keras.layers.Attention()\noutput = attention([query, value])  # queryとvalueの類似度で重み付け\n\n# MultiHeadAttention (Transformerの中核)\nmha = tf.keras.layers.MultiHeadAttention(\n    num_heads=8,  # ヘッド数（並列に注意を分割、8が標準）\n    key_dim=64    # 各ヘッドのkey/queryの次元数\n)\n# query: 問い合わせ先, value: 値, key: 検索キー\noutput = mha(query, value, key)",
+      "code": "import tensorflow as tf\n\n# Keras組み込み (Bahdanau)\nattention = tf.keras.layers \\\n    .Attention()\noutput = attention([query, value])\n\n# MultiHeadAttention\nmha = tf.keras.layers \\\n    .MultiHeadAttention(\n        num_heads=8,\n        key_dim=64\n    )\n# query:先, value:値, key:鍵\noutput = mha(query, value, key)",
       "note": "入力の重要部分に動的に注目する機構",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/MultiHeadAttention"
     },
     {
       "term": "Dense",
       "cat": "レイヤー",
-      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    units=128,           # 出力ユニット数\n    activation='relu',   # 活性化関数\n    kernel_initializer='he_normal',  # 重み初期化（ReLU系にHeが最適）\n    kernel_regularizer=tf.keras.regularizers.L2(\n        0.01  # L2正則化強度（過学習防止）\n    )\n))",
+      "code": "import tensorflow as tf\n\nmodel.add(tf.keras.layers.Dense(\n    units=128, # 出力数\n    activation='relu',\n    kernel_initializer='he_normal',\n    # L2正則化\n    kernel_regularizer=\\\n        tf.keras.regularizers.L2(0.01)\n))",
       "note": "全結合層。input×weightsの行列演算",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dense"
     },
@@ -206,14 +206,14 @@
     {
       "term": "ResNet",
       "cat": "モデル構造",
-      "code": "import tensorflow as tf\n\n# 学習済みResNet50\nbase = tf.keras.applications.ResNet50(\n    weights='imagenet',       # 'imagenet': 事前学習済み重み / None: ランダム初期化\n    include_top=False,        # False: 分類ヘッドを除外（自分の出力層を付けるため）\n    input_shape=(224,224,3)   # 入力画像サイズ（高さ, 幅, チャネル）\n)\n\n# ファインチューニング\nbase.trainable = False  # まず全層を凍結\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.GlobalAveragePooling2D(),  # 空間次元を潰す\n    tf.keras.layers.Dense(\n        10, activation='softmax'  # タスクに合わせた出力層\n    )\n])",
+      "code": "import tensorflow as tf\n\n# 学習済みResNet50\nbase = tf.keras.applications \\\n    .ResNet50(\n    weights='imagenet',\n    include_top=False,\n    input_shape=(224,224,3)\n)\n\n# ファインチューニング\nbase.trainable = False\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.GlobalAveragePooling2D(),\n    tf.keras.layers.Dense(\n        10, activation='softmax'\n    )\n])",
       "note": "残差接続を用いた深層CNN",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/applications/ResNet50"
     },
     {
       "term": "VGG",
       "cat": "モデル構造",
-      "code": "import tensorflow as tf\n\nbase = tf.keras.applications.VGG16(\n    weights='imagenet',\n    include_top=False,\n    input_shape=(224,224,3)\n)\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.Flatten(),\n    tf.keras.layers.Dense(256, activation='relu'),\n    tf.keras.layers.Dense(10, activation='softmax')\n])",
+      "code": "import tensorflow as tf\n\nbase = tf.keras.applications \\\n    .VGG16(\n        weights='imagenet',\n        include_top=False,\n        input_shape=(224,224,3)\n    )\n# シンプルで高精度だが重い\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.Flatten(),\n    tf.keras.layers.Dense(256, activation='relu'),\n    tf.keras.layers.Dense(10, activation='softmax')\n])",
       "note": "3x3畳み込みを積み重ねたシンプルなCNN",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/applications/VGG16"
     },
@@ -262,7 +262,7 @@
     {
       "term": "データ拡張",
       "cat": "前処理",
-      "code": "import tensorflow as tf\n\naugmentation = tf.keras.Sequential([\n    tf.keras.layers.RandomFlip('horizontal'),     # 水平方向にランダム反転\n    tf.keras.layers.RandomRotation(0.1),          # ±10%(±36°)の範囲で回転\n    tf.keras.layers.RandomZoom(0.1),              # ±10%の範囲でズーム\n    tf.keras.layers.RandomContrast(0.1),          # ±10%のコントラスト変化\n    tf.keras.layers.RandomTranslation(0.1, 0.1),  # 縦横±10%平行移動\n])\n\n# モデルに組み込み（訓練時のみ適用される）\nmodel = tf.keras.Sequential([\n    augmentation,\n    tf.keras.layers.Conv2D(32, 3, activation='relu'),\n    ...\n])",
+      "code": "import tensorflow as tf\n\naug = tf.keras.Sequential([\n    # ランダム反転\n    tf.keras.layers.RandomFlip('horizontal'),\n    # 回転 ±10%\n    tf.keras.layers.RandomRotation(0.1),\n    # ズーム ±10%\n    tf.keras.layers.RandomZoom(0.1),\n])\n\nmodel = tf.keras.Sequential([\n    aug,\n    tf.keras.layers.Conv2D(32, 3)\n])",
       "note": "訓練データを変換して量を増やし汎化性能を向上",
       "doc": "https://www.tensorflow.org/tutorials/images/data_augmentation"
     },
@@ -282,35 +282,35 @@
     {
       "term": "転移学習",
       "cat": "学習手法",
-      "code": "import tensorflow as tf\n\n# ImageNetで事前学習済みモデル\nbase = tf.keras.applications.MobileNetV2(\n    weights='imagenet',       # 事前学習済み重みを使用\n    include_top=False,        # 分類ヘッドを除外\n    input_shape=(224,224,3)   # 入力画像サイズ\n)\nbase.trainable = False  # まず全層を凍結（特徴抽出層をそのまま使用）\n\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.GlobalAveragePooling2D(),  # 空間次元を平均化\n    tf.keras.layers.Dense(128, activation='relu'),\n    tf.keras.layers.Dropout(0.3),  # 過学習防止\n    tf.keras.layers.Dense(5, activation='softmax')  # 5クラス分類\n])\n\n# 段階的アンフリーズ（上位層から徐々に解凍）\nbase.trainable = True\nfor layer in base.layers[:-30]:  # 下位30層以外を凍結維持\n    layer.trainable = False",
+      "code": "import tensorflow as tf\n\nbase = tf.keras.applications \\\n    .MobileNetV2(\n        weights='imagenet',\n        include_top=False\n    )\nbase.trainable = False\n\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.GlobalAveragePooling2D(),\n    tf.keras.layers.Dense(5)\n])\n\n# 段階的解凍\nbase.trainable = True\nfor layer in base.layers[:-30]:\n    layer.trainable = False",
       "note": "事前学習モデルを新タスクに適応させる手法",
       "doc": "https://www.tensorflow.org/tutorials/images/transfer_learning"
     },
     {
       "term": "ファインチューニング",
       "cat": "学習手法",
-      "code": "import tensorflow as tf\n\n# 低学習率でファインチューニング\nmodel.compile(\n    optimizer=tf.keras.optimizers.Adam(\n        learning_rate=1e-5  # 通常より低い学習率（事前学習済み重みを壊さないため）\n    ),\n    loss='sparse_categorical_crossentropy',  # 整数ラベルの多クラス分類\n    metrics=['accuracy']\n)\n\n# 特定の層だけ学習可能に（上位層を微調整）\nfor layer in model.layers[-10:]:\n    layer.trainable = True  # 最後の10層のみ学習対象",
+      "code": "import tensorflow as tf\n\n# 低学習率で微調整\nmodel.compile(\n    optimizer=tf.keras.optimizers.Adam(\n        learning_rate=1e-5\n    ),\n    loss='sparse_categorical_crossentropy',\n    metrics=['accuracy']\n)\n\n# 上位層のみ学習可\nfor layer in model.layers[-10:]:\n    layer.trainable = True",
       "note": "事前学習済みモデルの一部をタスク固有データで再学習",
       "doc": "https://www.tensorflow.org/tutorials/images/transfer_learning"
     },
     {
       "term": "知識蒸留",
       "cat": "学習手法",
-      "code": "import tensorflow as tf\n\ndef distillation_loss(y_true, y_pred, teacher_pred,\n                      temperature=3.0, alpha=0.5):\n    # temperature: 蒸留温度（高い→ソフトターゲットが滑らかに）\n    # alpha: 蒸留損失とハード損失の混合比率\n    soft_targets = tf.nn.softmax(teacher_pred / temperature)\n    soft_pred = tf.nn.softmax(y_pred / temperature)\n    # 教師のソフト出力とのKLダイバージェンス\n    distill = tf.keras.losses.KLDivergence()(soft_targets, soft_pred)\n    # 通常のハードラベル損失\n    hard = tf.keras.losses.SparseCategoricalCrossentropy(\n        from_logits=True)(y_true, y_pred)\n    # temperature²でスケーリング補正\n    return alpha * distill * temperature**2 + (1-alpha) * hard",
+      "code": "import tensorflow as tf\n\ndef dist_loss(y_true, y_pred,\n              teacher, temp=3, alpha=0.5):\n    # Soft targets\n    soft_t = tf.nn.softmax(teacher / temp)\n    soft_p = tf.nn.softmax(y_pred / temp)\n    \n    # KL Divergence\n    distill = tf.keras.losses \\\n        .KLDivergence()(soft_t, soft_p)\n    \n    # Hard loss\n    hard = tf.keras.losses \\\n        .SparseCategoricalCrossentropy(\n            from_logits=True)(y_true, y_pred)\n            \n    return alpha * distill * temp**2 \\\n           + (1-alpha) * hard",
       "note": "大きな教師モデルの知識を小さな生徒モデルに転移",
       "doc": "https://www.tensorflow.org/model_optimization/guide/knowledge_distillation"
     },
     {
       "term": "勾配クリッピング",
       "cat": "学習手法",
-      "code": "import tensorflow as tf\n\n# Optimizerで勾配クリッピングを指定\noptimizer = tf.keras.optimizers.Adam(\n    learning_rate=0.001,\n    clipnorm=1.0    # L2ノルムが1.0を超えたらスケーリング\n    # clipvalue=0.5  # 値でクリップ（各要素を[-0.5, 0.5]に制限）\n)",
+      "code": "import tensorflow as tf\n\n# 勾配クリッピング(norm)\nopt = tf.keras.optimizers.Adam(\n    learning_rate=0.001,\n    clipnorm=1.0\n)",
       "note": "勾配爆発を防止するためにノルムを制限",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adam"
     },
     {
       "term": "バッチサイズ",
       "cat": "学習手法",
-      "code": "import tensorflow as tf\n\nmodel.fit(\n    x_train, y_train,\n    batch_size=32,        # 1回の更新で使うサンプル数（小→ノイズ多、大→メモリ大）\n    epochs=100,           # 訓練データ全体を何周学習するか\n    validation_split=0.2  # 訓練データの20%を検証用に分割\n)\n\n# tf.data.Datasetで高効率パイプライン\nds = tf.data.Dataset.from_tensor_slices((x, y))\nds = ds.shuffle(1000)        # シャッフルバッファサイズ\nds = ds.batch(64)            # バッチサイズ64\nds = ds.prefetch(tf.data.AUTOTUNE)  # 次のバッチを事前読み込み",
+      "code": "import tensorflow as tf\n\nmodel.fit(\n    x_train, y_train,\n    batch_size=32,\n    epochs=100,\n    validation_split=0.2\n)\n\n# tf.data (推奨)\nds = tf.data.Dataset \\\n    .from_tensor_slices((x, y))\nds = ds.shuffle(1000)\nds = ds.batch(64)\nds = ds.prefetch(tf.data.AUTOTUNE)",
       "note": "1回の更新で使用するサンプル数",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/Model#fit"
     },
@@ -324,14 +324,14 @@
     {
       "term": "MobileNet",
       "cat": "モデル構造",
-      "code": "import tensorflow as tf\n\nbase = tf.keras.applications.MobileNetV2(\n    weights='imagenet',\n    include_top=False,\n    input_shape=(224,224,3),\n    alpha=1.0  # モデル幅\n)\n\n# TFLite向け量子化\nconverter = tf.lite.TFLiteConverter.from_keras_model(model)\nconverter.optimizations = [tf.lite.Optimize.DEFAULT]\ntflite_model = converter.convert()",
+      "code": "import tensorflow as tf\n\nbase = tf.keras.applications \\\n    .MobileNetV2(\n        weights='imagenet',\n        include_top=False,\n        input_shape=(224,224,3),\n        alpha=1.0  # モデル幅\n    )\n# 軽量・高速 (スマホ向け)\n\n# TFLite向け量子化\nconverter = tf.lite.TFLiteConverter.from_keras_model(model)\nconverter.optimizations = [tf.lite.Optimize.DEFAULT]\ntflite_model = converter.convert()",
       "note": "Depthwise Separable Convによる軽量モデル",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/applications/MobileNetV2"
     },
     {
       "term": "重み初期化",
       "cat": "学習手法",
-      "code": "import tensorflow as tf\n\n# He初期化: ReLU系活性化関数向け（分散を維持）\nmodel.add(tf.keras.layers.Dense(\n    64, activation='relu',\n    kernel_initializer='he_normal'  # 正規分布版He / 'he_uniform'もある\n))\n\n# Xavier/Glorot初期化: sigmoid/tanh系向け\nmodel.add(tf.keras.layers.Dense(\n    64, activation='tanh',\n    kernel_initializer='glorot_uniform'  # Kerasのデフォルト\n    # 'glorot_normal'も選択可\n))",
+      "code": "import tensorflow as tf\n\n# He (ReLU系)\nmodel.add(tf.keras.layers.Dense(\n    64, activation='relu',\n    kernel_initializer='he_normal'\n))\n\n# Xavier/Glorot (tanh系)\nmodel.add(tf.keras.layers.Dense(\n    64, activation='tanh',\n    kernel_initializer='glorot_uniform'\n))",
       "note": "層の重みの初期値を適切に設定し学習を安定化",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/initializers"
     },
@@ -359,42 +359,42 @@
     {
       "term": "モデルの保存",
       "cat": "運用",
-      "code": "import tensorflow as tf\n\n# SavedModel形式（モデル全体を保存）\nmodel.save('my_model')  # ディレクトリに保存\nloaded = tf.keras.models.load_model('my_model')  # 復元\n\n# 重みのみ保存（モデル構造は別途必要）\nmodel.save_weights('weights.h5')\nmodel.load_weights('weights.h5')\n\n# チェックポイント（訓練中の最良モデルを自動保存）\ncp = tf.keras.callbacks.ModelCheckpoint(\n    'best.keras',          # 保存先ファイル名\n    save_best_only=True,   # True: 最良モデルのみ保存\n    monitor='val_accuracy'  # 監視する指標\n)\nmodel.fit(x, y, callbacks=[cp])",
+      "code": "import tensorflow as tf\n\n# SavedModel (全保存)\nmodel.save('my_model')\nloaded = tf.keras.models \\\n    .load_model('my_model')\n\n# 重みのみ\nmodel.save_weights('w.h5')\nmodel.load_weights('w.h5')\n\n# Checkpoint\ncp = tf.keras.callbacks \\\n    .ModelCheckpoint(\n        'best.keras',\n        save_best_only=True\n    )",
       "note": "学習済みモデルの永続化と復元",
       "doc": "https://www.tensorflow.org/guide/keras/save_and_serialize"
     },
     {
       "term": "TensorBoard",
       "cat": "運用",
-      "code": "import tensorflow as tf\n\n# TensorBoardコールバック\ntb = tf.keras.callbacks.TensorBoard(\n    log_dir='./logs',      # ログ保存ディレクトリ\n    histogram_freq=1       # 何epochごとに重みヒストグラムを記録（0=無効）\n)\nmodel.fit(x, y, callbacks=[tb])\n\n# カスタムスカラーを手動で記録\nwriter = tf.summary.create_file_writer('./logs')\nwith writer.as_default():\n    tf.summary.scalar(\n        'custom_metric', value,  # メトリクス名と値\n        step=epoch               # ステップ番号\n    )",
+      "code": "import tensorflow as tf\n\n# TensorBoard\ntb = tf.keras.callbacks \\\n    .TensorBoard(\n        log_dir='./logs',\n        histogram_freq=1\n    )\n\n# Custom Scalar\nwriter = tf.summary \\\n    .create_file_writer('./logs')\nwith writer.as_default():\n    tf.summary.scalar(\n        'custom', value, step=epoch\n    )",
       "note": "学習過程の可視化ツール",
       "doc": "https://www.tensorflow.org/tensorboard"
     },
     {
       "term": "GPU / CUDA",
       "cat": "運用",
-      "code": "import tensorflow as tf\n\n# GPU確認\nprint(tf.config.list_physical_devices('GPU'))\n\n# メモリ成長を有効化（必要分だけ確保、OOM防止）\ngpus = tf.config.list_physical_devices('GPU')\nfor gpu in gpus:\n    tf.config.experimental.set_memory_growth(\n        gpu, True  # True: 必要に応じてメモリを段階的に確保\n    )\n\n# 特定GPUを使用\nwith tf.device('/GPU:0'):  # GPU番号を指定\n    model = build_model()",
+      "code": "import tensorflow as tf\n\n# GPU確認\nprint(tf.config.list_physical_devices('GPU'))\n\n# メモリ成長 (OOM防止)\ngpus = tf.config.list_physical_devices('GPU')\nfor gpu in gpus:\n    tf.config.experimental \\\n        .set_memory_growth(gpu, True)\n\n# 特定GPU指定\nwith tf.device('/GPU:0'):\n    model = build_model()",
       "note": "GPUを使用した高速計算",
       "doc": "https://www.tensorflow.org/guide/gpu"
     },
     {
       "term": "混合精度",
       "cat": "運用",
-      "code": "import tensorflow as tf\n\n# 混合精度の有効化（グローバル設定）\ntf.keras.mixed_precision.set_global_policy(\n    'mixed_float16'  # 計算はfloat16、勾配累積はfloat32\n)\n\n# モデル構築（自動的にfloat16で計算）\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(128, activation='relu'),\n    tf.keras.layers.Dense(\n        10, dtype='float32'  # 出力層はfp32（数値安定性のため）\n    )\n])",
+      "code": "import tensorflow as tf\n\n# 混合精度 (float16)\ntf.keras.mixed_precision \\\n    .set_global_policy('mixed_float16')\n\n# 出力層はfloat32推奨\nmodel.add(tf.keras.layers.Dense(\n    10, dtype='float32'\n))",
       "note": "float16とfloat32を混合し高速化とメモリ節約",
       "doc": "https://www.tensorflow.org/guide/mixed_precision"
     },
     {
       "term": "量子化",
       "cat": "運用",
-      "code": "import tensorflow as tf\n\n# ポストトレーニング量子化（学習後に適用）\nconverter = tf.lite.TFLiteConverter.from_keras_model(model)\nconverter.optimizations = [\n    tf.lite.Optimize.DEFAULT  # デフォルト最適化（サイズ縮小+高速化）\n]\ntflite_model = converter.convert()\n\n# INT8完全量子化（更高速、表現データセットが必要）\nconverter.representative_dataset = representative_dataset  # 代表データ\nconverter.target_spec.supported_ops = [\n    tf.lite.OpsSet.TFLITE_BUILTINS_INT8  # INT8演算のみ使用\n]",
+      "code": "import tensorflow as tf\n\n# Post-training Quantization\nconverter = tf.lite.TFLiteConverter \\\n    .from_keras_model(model)\n\n# デフォルト最適化\nconverter.optimizations = [\n    tf.lite.Optimize.DEFAULT\n]\ntflite_model = converter.convert()",
       "note": "モデルを低ビット化し推論を高速化・軽量化",
       "doc": "https://www.tensorflow.org/lite/performance/post_training_quantization"
     },
     {
       "term": "tf.data",
       "cat": "運用",
-      "code": "import tensorflow as tf\n\n# パイプライン構築\nds = tf.data.Dataset.from_tensor_slices((images, labels))\nds = ds.shuffle(\n    buffer_size=1000  # シャッフルバッファ（大きい→よりランダム、メモリ大）\n)\nds = ds.map(\n    preprocess_fn,\n    num_parallel_calls=tf.data.AUTOTUNE  # 並列処理数を自動最適化\n)\nds = ds.batch(32)  # バッチサイズ\nds = ds.prefetch(\n    tf.data.AUTOTUNE  # 次のバッチをGPU計算中にCPUで準備\n)\n\n# TFRecord読み込み（大規模データ向け）\nds = tf.data.TFRecordDataset('data.tfrecord')\nds = ds.map(parse_fn).batch(32).prefetch(tf.data.AUTOTUNE)",
+      "code": "import tensorflow as tf\n\n# tf.data Pipeline\nds = tf.data.Dataset \\\n    .from_tensor_slices((x, y))\n\nds = ds.shuffle(1000) \\\n       .map(preprocess, \n            num_parallel_calls=tf.data.AUTOTUNE) \\\n       .batch(32) \\\n       .prefetch(tf.data.AUTOTUNE)",
       "note": "高効率なデータ入力パイプライン",
       "doc": "https://www.tensorflow.org/guide/data"
     },
@@ -457,7 +457,7 @@
     {
       "term": "コールバック",
       "cat": "運用",
-      "code": "import tensorflow as tf\n\ncallbacks = [\n    tf.keras.callbacks.EarlyStopping(\n        monitor='val_loss',  # 監視指標\n        patience=5           # 5epoch改善なしで停止\n    ),\n    tf.keras.callbacks.ModelCheckpoint(\n        'best.keras',        # 保存先\n        save_best_only=True  # 最良モデルのみ保存\n    ),\n    tf.keras.callbacks.ReduceLROnPlateau(\n        factor=0.5,          # 学習率を半分に\n        patience=3           # 3epoch改善なしで発動\n    ),\n    tf.keras.callbacks.TensorBoard(\n        log_dir='./logs'     # ログ保存先\n    ),\n    tf.keras.callbacks.CSVLogger(\n        'training.csv'       # 訓練ログをCSVに出力\n    ),\n]\n\nmodel.fit(x, y, epochs=100, callbacks=callbacks)",
+      "code": "import tensorflow as tf\n\ncbs = [\n    # EarlyStopping\n    tf.keras.callbacks.EarlyStopping(\n        monitor='val_loss',\n        patience=5\n    ),\n    # Checkpoint\n    tf.keras.callbacks.ModelCheckpoint(\n        'best.keras',\n        save_best_only=True\n    ),\n    # ReduceLROnPlateau\n    tf.keras.callbacks.ReduceLROnPlateau(\n        factor=0.5,\n        patience=3\n    )\n]\nmodel.fit(x, y, callbacks=cbs)",
       "note": "訓練中にフック処理を実行する仕組み",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/callbacks"
     },
@@ -471,14 +471,14 @@
     {
       "term": "DenseNet",
       "cat": "モデル構造",
-      "code": "import tensorflow as tf\n\nbase = tf.keras.applications.DenseNet121(\n    weights='imagenet',\n    include_top=False,\n    input_shape=(224,224,3)\n)\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.GlobalAveragePooling2D(),\n    tf.keras.layers.Dense(10, activation='softmax')\n])",
+      "code": "import tensorflow as tf\n\nbase = tf.keras.applications \\\n    .DenseNet121(\n        weights='imagenet',\n        include_top=False,\n        input_shape=(224,224,3)\n    )\n# 特徴再利用で高効率\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.GlobalAveragePooling2D(),\n    tf.keras.layers.Dense(10, activation='softmax')\n])",
       "note": "各層が全ての前方層と接続するDense Block構造",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/applications/DenseNet121"
     },
     {
       "term": "Inception",
       "cat": "モデル構造",
-      "code": "import tensorflow as tf\n\nbase = tf.keras.applications.InceptionV3(\n    weights='imagenet',\n    include_top=False,\n    input_shape=(299,299,3)\n)\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.GlobalAveragePooling2D(),\n    tf.keras.layers.Dense(10, activation='softmax')\n])",
+      "code": "import tensorflow as tf\n\nbase = tf.keras.applications \\\n    .InceptionV3(\n        weights='imagenet',\n        include_top=False,\n        input_shape=(299,299,3)\n    )\n# 複数サイズフィルタを並列適用\nmodel = tf.keras.Sequential([\n    base,\n    tf.keras.layers.GlobalAveragePooling2D(),\n    tf.keras.layers.Dense(10, activation='softmax')\n])",
       "note": "複数サイズのフィルタを並列適用するInception Module",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/applications/InceptionV3"
     },
@@ -499,7 +499,7 @@
     {
       "term": "Label Smoothing",
       "cat": "正則化",
-      "code": "import tensorflow as tf\n\n# Label Smoothing付き交差エントロピー\nloss = tf.keras.losses.CategoricalCrossentropy(\n    label_smoothing=0.1  # 平滑化係数（0.1→正解を0.925、他を0.025に）\n)\n# 効果: one-hot [0,0,1,0] → [0.025, 0.025, 0.925, 0.025]\n# モデルの過信を防ぎ汎化性能を向上",
+      "code": "import tensorflow as tf\n\nloss = tf.keras.losses \\\n    .CategoricalCrossentropy(\n        label_smoothing=0.1\n    )\n# [0,1,0] -> [0.03, 0.93, 0.03]",
       "note": "正解ラベルを少しソフトにして過学習を防止",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/losses/CategoricalCrossentropy"
     },
@@ -513,14 +513,14 @@
     {
       "term": "Dilated Convolution",
       "cat": "レイヤー",
-      "code": "import tensorflow as tf\n\n# 膨張畳み込み（フィルタに隋間を入れて受容野を拡大）\nmodel.add(tf.keras.layers.Conv2D(\n    64, 3,\n    dilation_rate=2,      # 膨張率（2→フィルタ間ど1ピクセル空ける）\n    padding='same',       # 出力サイズ維持\n    activation='relu'\n))\n# dilation_rate=2 → 3x3フィルタで受容野5x5相当（パラメータ増加なし）",
+      "code": "import tensorflow as tf\n\n# Dilated Conv\nmodel.add(tf.keras.layers.Conv2D(\n    64, 3,\n    dilation_rate=2, # 受容野拡大\n    padding='same'\n))\n# 3x3フィルタで受容野5x5相当",
       "note": "フィルタに隙間を入れて受容野を拡大",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/Conv2D"
     },
     {
       "term": "グループ正規化",
       "cat": "正則化",
-      "code": "import tensorflow as tf\n\n# GroupNormalization\nx = tf.keras.layers.GroupNormalization(\n    groups=32,  # チャネルを何グループに分けるか\n    axis=-1     # 正規化する軸（-1=最後の軸=チャネル）\n)(x)\n# groups=1 → LayerNormと等価\n# groups=C(チャネル数) → InstanceNormと等価",
+      "code": "import tensorflow as tf\n\nx = tf.keras.layers \\\n    .GroupNormalization(\n        groups=32, axis=-1\n    )(x)\n# バッチサイズ依存なし",
       "note": "チャネルをグループに分けて正規化。バッチサイズに非依存",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/GroupNormalization"
     },
@@ -541,14 +541,14 @@
     {
       "term": "Triplet Loss",
       "cat": "損失関数",
-      "code": "import tensorflow as tf\n\ndef triplet_loss(anchor, positive, negative, margin=1.0):\n    # anchor: 基準サンプル\n    # positive: anchorと同じクラスのサンプル\n    # negative: anchorと異なるクラスのサンプル\n    # margin: 正例と負例の距離差の最小マージン\n    pos_dist = tf.reduce_sum(tf.square(anchor - positive), axis=-1)\n    neg_dist = tf.reduce_sum(tf.square(anchor - negative), axis=-1)\n    # 正例より負例がmargin以上遠くなるよう学習\n    loss = tf.maximum(pos_dist - neg_dist + margin, 0.0)\n    return tf.reduce_mean(loss)",
+      "code": "import tensorflow as tf\n\ndef triplet_loss(anchor, pos, neg, margin=1.0):\n    pos_dist = tf.reduce_sum(\n        tf.square(anchor - pos), -1)\n    neg_dist = tf.reduce_sum(\n        tf.square(anchor - neg), -1)\n    loss = tf.maximum(\n        pos_dist - neg_dist + margin, 0.0)\n    return tf.reduce_mean(loss)",
       "note": "アンカー・正例・負例の距離関係を学習する損失",
       "doc": "https://www.tensorflow.org/addons/tutorials/losses_triplet"
     },
     {
       "term": "Focal Loss",
       "cat": "損失関数",
-      "code": "import tensorflow as tf\n\ndef focal_loss(y_true, y_pred, gamma=2.0, alpha=0.25):\n    # gamma: 簡単な例の重みを下げる係数（大きい→難しい例に集中）\n    # alpha: クラスバランスの重み係数（少数クラスに大きい値）\n    bce = tf.keras.losses.binary_crossentropy(y_true, y_pred)\n    p_t = y_true * y_pred + (1 - y_true) * (1 - y_pred)\n    focal_weight = alpha * tf.pow(1 - p_t, gamma)  # 確信度が低いほど重み↑\n    return focal_weight * bce",
+      "code": "import tensorflow as tf\n\ndef focal_loss(y_true, y_pred,\n               gamma=2.0, alpha=0.25):\n    bce = tf.keras.losses \\\n        .binary_crossentropy(y_true, y_pred)\n    p_t = y_true * y_pred \\\n          + (1-y_true) * (1-y_pred)\n    weight = alpha * tf.pow(1-p_t, gamma)\n    return weight * bce",
       "note": "クラス不均衡に対応する重み付き損失関数",
       "doc": "https://www.tensorflow.org/api_docs/python/tf/keras/losses"
     }
