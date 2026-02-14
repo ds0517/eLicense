@@ -13,31 +13,42 @@ function highlightPython(code) {
     const lines = code.split('\n');
     return lines.map(line => {
         let s = esc(line);
-        // Comments
-        s = s.replace(/(#.*)$/g, '<span class="hljs-comment">$1</span>');
-        // Strings (handle both quote types, but skip those inside comments)
-        if (!line.trim().startsWith('#')) {
-            s = s.replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*")/g, '<span class="hljs-string">$1</span>');
-        }
-        // Keywords
+        const masks = [];
+        const mask = (content, className) => {
+            const key = `__MASK_${masks.length}__`;
+            masks.push({ key, content, className });
+            return key;
+        };
+
+        // 1. Strings
+        s = s.replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*")/g, (m) => mask(m, 'hljs-string'));
+
+        // 2. Comments
+        s = s.replace(/(#.*)$/g, (m) => mask(m, 'hljs-comment'));
+
+        // 3. Numbers
+        s = s.replace(/\b(\d+\.?\d*(?:e[+-]?\d+)?)\b/g, (m) => mask(m, 'hljs-number'));
+
+        // 4. Function/Class Names (titles)
+        s = s.replace(/(\bdef\b\s+)(\w+)/g, (m, d, n) => d + mask(n, 'hljs-title function_'));
+        s = s.replace(/(\bclass\b\s+)(\w+)/g, (m, c, n) => c + mask(n, 'hljs-title class_'));
+
+        // 5. Decorators
+        s = s.replace(/(@\w+)/g, (m) => mask(m, 'hljs-keyword'));
+
+        // 6. Keywords
         const kw = ['import', 'from', 'def', 'class', 'return', 'if', 'else', 'elif', 'for', 'in', 'while', 'with', 'as', 'True', 'False', 'None', 'lambda', 'yield', 'raise', 'try', 'except', 'finally', 'pass', 'break', 'continue', 'not', 'and', 'or', 'is', 'assert', 'global', 'nonlocal', 'del', 'async', 'await'];
         kw.forEach(k => {
             const re = new RegExp(`\\b(${k})\\b`, 'g');
-            s = s.replace(re, (m, p1, offset) => {
-                // Don't replace inside already-tagged spans
-                const before = s.substring(0, offset);
-                if ((before.match(/<span/g) || []).length > (before.match(/<\/span>/g) || []).length) return m;
-                return `<span class="hljs-keyword">${p1}</span>`;
-            });
+            s = s.replace(re, (m) => mask(m, 'hljs-keyword'));
         });
-        // Numbers
-        s = s.replace(/\b(\d+\.?\d*(?:e[+-]?\d+)?)\b/g, '<span class="hljs-number">$1</span>');
-        // Decorators
-        s = s.replace(/(@\w+)/g, '<span class="hljs-keyword">$1</span>');
-        // Function defs
-        s = s.replace(/(\bdef\b\s+)(\w+)/g, '$1<span class="hljs-title function_">$2</span>');
-        // Class defs
-        s = s.replace(/(\bclass\b\s+)(\w+)/g, '$1<span class="hljs-title class_">$2</span>');
+
+        // 7. Restore masks (reverse order to avoid substring collisions like MASK_1 inside MASK_10)
+        for (let i = masks.length - 1; i >= 0; i--) {
+            const m = masks[i];
+            s = s.replace(m.key, `<span class="${m.className}">${m.content}</span>`);
+        }
+
         return s;
     }).join('\n');
 }
