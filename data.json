@@ -2849,6 +2849,1063 @@
             ]
           }
         ]
+      },
+      {
+        "name": "スプレッドシート取込",
+        "color": "#9ca3af",
+        "desc": "スプレッドシートから取り込んだ未整理の用語",
+        "children": [
+          {
+            "name": "統計・確率・情報理論",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "正規分布",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ベルヌーイ分布",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "パラメータ",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "α",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "β",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "最尤推定",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "事前確率",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ポアソン分布",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "二項分布",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ガンマ分布",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "情報量",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "name": "機械学習の基礎・手法",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "コサイン類似度",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "自己教師あり学習",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "サポートベクターマシン",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "主成分分析",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "k-平均法",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "階層的クラスタリング",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "半教師あり分類",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "能動学習",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "アンサンブル学習",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "過小適合",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "モデル容量",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "正規化",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "自己符号化器",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "データ集合",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "期待値",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "説明変数",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "真の値",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "予測モデル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "確率密度関数",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "実データ",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "目的関数",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ラッソ回帰",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "リッジ回帰",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "データセット",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "name": "評価指標",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "調和平均",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "name": "ニューラルネットワーク・最適化",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "ニューラルネットワーク",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "順伝搬型ニューラルネットワーク",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "全結合ニューラルネットワーク",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ソフトマックス",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "恒等関数",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "二値分類",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "バイナリベクトル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "onehotベクトル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "バイナリエントロピー誤差",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "シグモイド",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "LeakyReLU",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "DNN",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "偏微分式",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "確率的勾配法",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "SGD",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ミニバッチ降下法",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "PathlogicalCurventure",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "連鎖率",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "初期化手法",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "勾配",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "陽的正則化",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "隠的正則化",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "マスクベクトル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "スパース表現",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "正則化項",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "エラスティックネット",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "WeightDecay",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "name": "CNN・画像認識",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "神経科学",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "視覚野",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "カーネル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "フィルタ数",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ストライド",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "pointwise畳み込み",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "depthwise畳み込み",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ResNext",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "DenseNet",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "アベレージプーリング",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "マックスプーリング",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "特徴マップ",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "R-CNN",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Fast R-CNN",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ExhausticSearch",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "SelectiveSerch",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Multitaskloss",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "交差エントロピー誤差",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "RoI Align",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "アンビギュアスサンプル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "クラス分類",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "バウンディングボックス回帰",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "IoU loss",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "FCN 畳み込み",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "U-Net エンコーダ デコーダ スキップ接続",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "U-Net++",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "name": "RNN・自然言語処理",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "エンコーダ",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "デコーダ",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Attention",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "グローバルアテンション",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ローカルアテンション",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "SourceTargetAttention",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "クエリキーバリュー",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ScaledDotProduct",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "MultiHeadAttention",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "FeedForward",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "PositionEncoding",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "WordEnbegging",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "SVD",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "TF-IDF",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Word3Vec",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ワンホットベクトル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "NER",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "[CLS]",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "[SEP]",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "トークン埋め込み",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "セグメント埋め込み",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "スケーリング則",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "GPS-2",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Reddit",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Webスクレイピング",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "name": "データ拡張・生成モデル",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "RnadomFlip",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "RandomErase",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "RandomRotate",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "RandomBrightness",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "RandomCrop",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "RandomContrast",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ガウシアンノイズ",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "DPM",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "NICE",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "RealNVP",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "デノイジングエンコーダ",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "対数周辺尤度",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "リパラメタライゼーショントリック",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "最大化",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "最小化",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "inf",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "CycleGAN",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "サイクル一貫性損失",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Pix2Pix",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "DiscoGAN",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "TTUR",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "name": "強化学習",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "強化学習",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "AlphaGo",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "AlphaZero",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "モデルベース",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "モデルフリー",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "モンテカルロ法",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ベルマン方程式",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "TDターゲット",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "エピソード",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "SARSA",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Fixed Q-Target",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "経験再生",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "報酬クリッピング",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "アドバンテージ関数",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "name": "高度な学習手法・XAI・軽量化",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "ドメイン適合",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "特徴抽出",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ソースドメイン",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ターゲットドメイン",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "メタ学習",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Co-Training",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Self-Traing",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "End-to-End",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "SiameseNetwork",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Contrastiveloss",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Tripret Network",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "アンカーポジティブネガティブ",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Grad-DAM",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "大域解釈",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "局所解釈",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "説明モデル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "局所正確性",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "一致性",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "欠損性",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "モデル軽量化",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "非構造化プルーニング",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "構造化プルーニング",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "生徒モデル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "教師モデル",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ソフトターゲット",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ハードターゲット",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          },
+          {
+            "name": "インフラ・仮想化・ハードウェア",
+            "color": "#d1d5db",
+            "desc": "スプレッドシートのカテゴリ",
+            "children": [
+              {
+                "name": "VMU",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ASIC",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "TesorFlow",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "GPGPU",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "仮想化技術",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ホスト型",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ハイパーバイザー型",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "コンテナ型",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ホストOS",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "ゲストOS",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "オーバーヘッド",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "daemon",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "client",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "images",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "serch",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "pull",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "build",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "DockerCompose",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "YAML",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "DockerHub",
+                "color": "#e5e7eb",
+                "desc": ""
+              },
+              {
+                "name": "Dockerfile",
+                "color": "#e5e7eb",
+                "desc": ""
+              }
+            ]
+          }
+        ]
       }
     ]
   },
